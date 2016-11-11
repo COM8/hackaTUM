@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ausgaben_Rechner.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -63,9 +64,100 @@ namespace HackaTUM.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void expandGeneral_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (settingsGeneral_sckpl.Visibility == Visibility.Visible)
+            {
+                expandGeneralSettings_btn.Content = "\xE019";
+                settingsGeneral_sckpl.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                expandGeneralSettings_btn.Content = "\xE018";
+                settingsGeneral_sckpl.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void expandAlarm_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (settingsAlarm_sckpl.Visibility == Visibility.Visible)
+            {
+                expandAlarmSettings_btn.Content = "\xE019";
+                settingsAlarm_sckpl.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                expandAlarmSettings_btn.Content = "\xE018";
+                settingsAlarm_sckpl.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void expandPrivacy_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (settingsPrivacy_sckpl.Visibility == Visibility.Visible)
+            {
+                expandPrivacySettings_btn.Content = "\xE019";
+                settingsPrivacy_sckpl.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                expandPrivacySettings_btn.Content = "\xE018";
+                settingsPrivacy_sckpl.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void private_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataStorage.INSTANCE.settingsData.privateMode)
+            {
+                private_btn.Content = "\xE1F7";
+                DataStorage.INSTANCE.settingsData.privateMode = false;
+            }
+            else
+            {
+                private_btn.Content = "\xE1F6";
+                DataStorage.INSTANCE.settingsData.privateMode = true;
+            }
+            DataStorage.INSTANCE.saveSettingsData();
+        }
+
+        private void enable_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataStorage.INSTANCE.settingsData.enabled)
+            {
+                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Red);
+                DataStorage.INSTANCE.settingsData.enabled = false;
+            }
+            else
+            {
+                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Green);
+                DataStorage.INSTANCE.settingsData.enabled = true;
+            }
+            DataStorage.INSTANCE.saveSettingsData();
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataStorage.INSTANCE.settingsData.enabled)
+            {
+                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Green);
+            }
+            else
+            {
+                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Red);
+            }
+
+            if (DataStorage.INSTANCE.settingsData.privateMode)
+            {
+                private_btn.Content = "\xE1F6";
+            }
+            else
+            {
+                private_btn.Content = "\xE1F7";
+            }
+        }
 
         #endregion
+
     }
 }

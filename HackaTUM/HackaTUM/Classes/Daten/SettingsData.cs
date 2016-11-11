@@ -13,6 +13,8 @@ namespace Ausgaben_Rechner.Classes.Data
         [DataMember]
         public bool initialRun;
         [DataMember]
+        public bool enabled;
+        [DataMember]
         public bool privateMode;
         [DataMember]
         public bool smartMode;
@@ -35,6 +37,7 @@ namespace Ausgaben_Rechner.Classes.Data
         public SettingsData()
         {
             this.initialRun = true;
+            this.enabled = true;
             this.privateMode = false;
             this.smartMode = false;
             this.batterySaverMode = false;
