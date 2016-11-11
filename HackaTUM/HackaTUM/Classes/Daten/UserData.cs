@@ -1,56 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Popups;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
-namespace HackaTUM.Classes
+namespace Ausgaben_Rechner.Classes.Data
 {
-    public class Utilities
+    [DataContract]
+    class UserData
     {
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
-        public enum EnumPage
-        {
-            HomePage,
-            SmartClockPage,
-            MyWayPage,
-            SettingsPage
-        }
+        public const string JSON_FILE_NAME = "userData.json";
+
+        [DataMember]
+        public string adressWork;
+        [DataMember]
+        public string adressHome;
+        [DataMember]
+        public string iCall;
 
         #endregion
         //--------------------------------------------------------Construktoren:--------------------------------------------------------------\\
         #region --Construktoren--
-
-
-        #endregion
-        //--------------------------------------------------------Set-, Get- Metoden:---------------------------------------------------------\\
-        #region --Set-, Get- Metode--
-
-
-
-        #endregion
-        //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
-        #region --Sonstige Metoden (Public)--
         /// <summary>
-        /// Shows a message box on the screen with the given content
+        /// Basic Constructor
         /// </summary>
         /// <history>
         /// 11/11/2016  Created [Fabian Sauter]
         /// </history>
-        public static async Task showMessageBoxAsync(string message)
+        public UserData()
         {
-            MessageDialog dialog = new MessageDialog(message);
-            dialog.Title = "Achtung!";
-            await dialog.ShowAsync();
+            this.adressHome = null;
+            this.adressWork = null;
+            this.iCall = null;
         }
+
+        #endregion
+        //--------------------------------------------------------Set-, Get- Metoden:---------------------------------------------------------\\
+        #region --Set-, Get- Metode--
+        
+        
+
+        #endregion
+        //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
+        #region --Sonstige Metoden (Public)--
+        
 
 
         #endregion
 
         #region --Sonstige Metoden (Private)--
-
+        
 
 
         #endregion
@@ -60,6 +58,7 @@ namespace HackaTUM.Classes
 
 
         #endregion
+
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
 

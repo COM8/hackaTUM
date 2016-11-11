@@ -1,4 +1,5 @@
-﻿using HackaTUM.Pages;
+﻿using Ausgaben_Rechner.Classes;
+using HackaTUM.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using static HackaTUM.Classes.Utilities;
+using static HackaTUM.Classes.Utillities;
 
 // Die Vorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 dokumentiert.
 
@@ -116,7 +117,7 @@ namespace HackaTUM
         #region --Events--
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            /*if (!DataStorage.INSTANCE.dataInitiallyLoaded)
+            if (!DataStorage.INSTANCE.dataInitiallyLoaded)
             {
                 await DataStorage.INSTANCE.loadAllDataTaskAsync();
                 DataStorage.INSTANCE.dataInitiallyLoaded = true;
@@ -129,7 +130,7 @@ namespace HackaTUM
             else
             {
                 navigateToSelectedPage();
-            }*/
+            }
         }
 
         private void openSplitView_hbtn_Click(object sender, RoutedEventArgs e)
