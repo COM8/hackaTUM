@@ -233,7 +233,7 @@ namespace Ausgaben_Rechner.Classes
         /// <history>
         /// 11/11/2016  Created [Fabian Sauter]
         /// </history>
-        public async Task backupData()
+        public async Task createBackup()
         {
             saveAllData();
             try
@@ -286,7 +286,7 @@ namespace Ausgaben_Rechner.Classes
         /// <history>
         /// 11/11/2016  Created [Fabian Sauter]
         /// </history>
-        public async Task loadExtenalData()
+        public async Task loadBackup()
         {
             saveAllData();
             try

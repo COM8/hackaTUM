@@ -157,7 +157,16 @@ namespace HackaTUM.Pages
             }
         }
 
-        #endregion
+        private async void createBackup_btn_Click(object sender, RoutedEventArgs e)
+        {
+            await DataStorage.INSTANCE.createBackup();
+        }
 
+        private async void loadBackup_btn_Click(object sender, RoutedEventArgs e)
+        {
+            await DataStorage.INSTANCE.loadBackup();
+        }
+
+        #endregion
     }
 }
