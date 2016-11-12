@@ -11,7 +11,7 @@ using Microsoft.Azure.Devices.Common.Exceptions;
 namespace HackaTUM.Classes
 {
     class AzureConnectionHandler
-    {
+    {/*
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
 
@@ -64,6 +64,6 @@ namespace HackaTUM.Classes
 
         #endregion
 
-
+        */
     }
 }
