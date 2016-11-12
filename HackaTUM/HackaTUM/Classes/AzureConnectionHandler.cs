@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Devices;
+using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Common.Exceptions;
 
 
 namespace HackaTUM.Classes
@@ -13,10 +15,10 @@ namespace HackaTUM.Classes
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
 
-        //private DeviceClient deviceClient;
-        private string iotHubHostname = "{iot hub hostname}";
-        private string deviceId = "{device id}";
-        private string deviceKey = "{device key}";
+        private static DeviceClient deviceClient;
+        private static string iotHubHostname = "hackaTumUApp.azure-devices.net";
+        private static string deviceId = "device";
+        private static string deviceKey = "ekH5Jnt5i3cxwG6WN3ekfFho2YZ/L9eK4nISpVY7tkY=";
 
 
         #endregion
@@ -34,8 +36,6 @@ namespace HackaTUM.Classes
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
         #region --Sonstige Metoden (Public)--
 
-
-        
         public static void initialize()
         {
             // Initialize device client
