@@ -23,7 +23,13 @@ namespace Ausgaben_Rechner.Classes.Data
         [DataMember]
         public DateTime bufferTime;
         [DataMember]
+        public bool latestRingTimeEnabled;
+        [DataMember]
         public DateTime latestRingTime;
+        [DataMember]
+        public bool gpsEnabled;
+        [DataMember]
+        public bool steptackingEnabled;
 
         #endregion
         //--------------------------------------------------------Construktoren:--------------------------------------------------------------\\

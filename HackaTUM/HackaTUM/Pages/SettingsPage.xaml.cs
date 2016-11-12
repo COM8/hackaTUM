@@ -158,7 +158,19 @@ namespace HackaTUM.Pages
 
             powersaverMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.batterySaverMode;
             smartMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.smartMode;
-
+            noGps_tgls.IsOn = DataStorage.INSTANCE.settingsData.gpsEnabled;
+            noStepTacking.IsOn = DataStorage.INSTANCE.settingsData.steptackingEnabled;
+            latestRingTime_tpck.IsEnabled = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+            latestRingTime_tgls.IsOn = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+            if (DataStorage.INSTANCE.settingsData.latestRingTime != null)
+            {
+                DateTime time = DataStorage.INSTANCE.settingsData.latestRingTime;
+                latestRingTime_tpck.Time = new TimeSpan(time.Hour, time.Minute, time.Second);
+            }
+            else
+            {
+                latestRingTime_tpck.Time = new TimeSpan(0, 0, 0);
+            }
         }
 
         private async void createBackup_btn_Click(object sender, RoutedEventArgs e)
@@ -181,7 +193,22 @@ namespace HackaTUM.Pages
             DataStorage.INSTANCE.settingsData.smartMode = !DataStorage.INSTANCE.settingsData.smartMode;
         }
 
+        private void noGps_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.settingsData.gpsEnabled = !DataStorage.INSTANCE.settingsData.gpsEnabled;
+        }
+
+        private void noStepTacking_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.settingsData.steptackingEnabled = !DataStorage.INSTANCE.settingsData.steptackingEnabled;
+        }
+
         #endregion
 
+        private void latestRingTime_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.settingsData.latestRingTimeEnabled = !DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+            latestRingTime_tpck.IsEnabled = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+        }
     }
 }

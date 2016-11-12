@@ -28,7 +28,7 @@
                     </RelativePanel>
                     <StackPanel Name="settingsGeneral_sckpl" Visibility="Collapsed" Padding="5,10,5,10">
                         <!--GENERAL-->
-                        <ToggleSwitch Name="powersaverMode_tgls" Header="Enable Powersaver Mode" Margin="0,0,0,10" Toggled="powersaverMode_tgls_Toggled"/>
+                        <ToggleSwitch Name="powersaverMode_tgls" Header="Powersaver Mode:" Margin="0,0,0,10" Toggled="powersaverMode_tgls_Toggled"/>
                         <Button Name="createBackup_btn" Content="Create Backup" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="createBackup_btn_Click"/>
                         <Button Name="loadBackup_btn" Content="Load Backup" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="loadBackup_btn_Click"/>
                     </StackPanel>
@@ -41,11 +41,11 @@
                             <Button x:Name="expandAlarmSettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandAlarm_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
-                    <StackPanel Name="settingsAlarm_sckpl" Visibility="Collapsed" Padding="5,10,5,10">
+                    <StackPanel Name="settingsAlarm_sckpl" Visibility="Visible" Padding="5,10,5,10">
                         <!--ALARM-->
-                        <ToggleSwitch Name="smartMode_tgls" Header="Enable Smart Mode" Margin="0,0,0,10" Toggled="smartMode_tgls_Toggled"/>
-                        <TextBlock Text="Last ring time:"/>
-                        <TimePicker Name="lastRingTime_tpck" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
+                        <ToggleSwitch Name="smartMode_tgls" Header="Smart Mode:" Margin="0,0,0,10" Toggled="smartMode_tgls_Toggled"/>
+                        <ToggleSwitch Name="latestRingTime_tgls" Header="Latest Ring Time:" Toggled="latestRingTime_tgls_Toggled"/>
+                        <TimePicker Name="latestRingTime_tpck" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -56,12 +56,10 @@
                             <Button x:Name="expandPrivacySettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandPrivacy_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
-                    <StackPanel Name="settingsPrivacy_sckpl" Visibility="Collapsed">
+                    <StackPanel Name="settingsPrivacy_sckpl" Visibility="Collapsed" Padding="5,10,5,10">
                         <!--Privacy-->
-                        <TextBlock Text="1"/>
-                        <TextBlock Text="2"/>
-                        <TextBlock Text="3"/>
-                        <TextBlock Text="4"/>
+                        <ToggleSwitch Name="noGps_tgls" Header="GPS:" Margin="0,0,0,10" Toggled="noGps_tgls_Toggled"/>
+                        <ToggleSwitch Name="noStepTacking" Header="Step Tracking:" Margin="0,0,0,10" Toggled="noStepTacking_tgls_Toggled"/>
                     </StackPanel>
                 </StackPanel>
 
