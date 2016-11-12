@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\AzureConnectionHandler.cs" />
+    <Compile Include="Classes\GPSHandlerTask.cs" />
     <Compile Include="Classes\TravelDataManager.cs" />
     <Compile Include="Classes\Utillities.cs" />
     <Compile Include="Classes\Daten\DataStorage.cs" />
