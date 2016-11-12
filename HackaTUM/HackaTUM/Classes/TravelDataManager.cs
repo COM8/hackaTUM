@@ -39,16 +39,16 @@ namespace HackaTUM.Classes
         #region --Sonstige Metoden (Public)--
         public static String getConnectionInfo(DateTime DestinationTime)
         {
-            return (getConnectionInfo(Convert.ToString(DataStorage.INSTANCE.userData.adressHome.Position.Latitude+","+DataStorage.INSTANCE.userData.adressHome.Position.Longitude), Convert.ToString(DataStorage.INSTANCE.userData.adressWork.Position.Latitude + "," + DataStorage.INSTANCE.userData.adressWork.Position.Longitude), DestinationTime));
+            return (getConnectionInfo(Convert.ToString(DataStorage.INSTANCE.userData.adressHome.Position.Latitude.ToString().Replace(',', '.') + "," + DataStorage.INSTANCE.userData.adressHome.Position.Longitude.ToString().Replace(',', '.')), Convert.ToString(DataStorage.INSTANCE.userData.adressWork.Position.Latitude.ToString().Replace(',', '.') + "," + DataStorage.INSTANCE.userData.adressWork.Position.Longitude.ToString().Replace(',', '.')), DestinationTime));
         }
 
-        public static String getConnectionInfo(String startAdress, String Destination, DateTime DestinationTime)
+        public static String getConnectionInfo(String startAdress, String destination, DateTime DestinationTime)
         {
-            //DataStorage.INSTANCE.userData.adressHome
+            string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
+
             using (var client = new HttpClient())
             {
-                string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + Destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
-                var response = client.GetAsync(s).Result;
+                var response = client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo").Result;
 
                 if (response.IsSuccessStatusCode)
                 {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -53,8 +54,11 @@ namespace HackaTUM.Pages
         #endregion
 
         #region --Sonstige Metoden (Private)--
-
-
+        private void setNextWakeUpTime()
+        {
+            int minutes = TravelDataManager.getNeededTimeInSeconds(DateTime.Now) / 60;
+            timeToGetToWork_lbl.Text = minutes + " Minutes";
+        }
 
         #endregion
 
@@ -65,15 +69,11 @@ namespace HackaTUM.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-
-
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            setNextWakeUpTime();
+        }
 
         #endregion
-
-        private void recalc_Click(object sender, RoutedEventArgs e)
-        {
-            int time = TravelDataManager.getNeededTimeInSeconds(DateTime.Now);
-            recalc.Content = time;
-        }
     }
 }
