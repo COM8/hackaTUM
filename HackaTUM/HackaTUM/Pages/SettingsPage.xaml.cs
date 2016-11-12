@@ -155,6 +155,10 @@ namespace HackaTUM.Pages
             {
                 private_btn.Content = "\xE1F7";
             }
+
+            powersaverMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.batterySaverMode;
+            smartMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.smartMode;
+
         }
 
         private async void createBackup_btn_Click(object sender, RoutedEventArgs e)
@@ -167,6 +171,17 @@ namespace HackaTUM.Pages
             await DataStorage.INSTANCE.loadBackup();
         }
 
+        private void powersaverMode_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.settingsData.batterySaverMode = !DataStorage.INSTANCE.settingsData.batterySaverMode;
+        }
+
+        private void smartMode_tgls_Toggled(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.settingsData.smartMode = !DataStorage.INSTANCE.settingsData.smartMode;
+        }
+
         #endregion
+
     }
 }
