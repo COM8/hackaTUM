@@ -72,7 +72,7 @@ namespace HackaTUM.Pages
 
         private void recalc_Click(object sender, RoutedEventArgs e)
         {
-            DataStorage.INSTANCE.userData.adressHome = "89614";
+            DataStorage.INSTANCE.userData.adressHome = "Neufahrn";
             DataStorage.INSTANCE.userData.adressWork = "München";
             int time = TravelDataManager.getNeededTimeInSeconds(DateTime.Now);
             recalc.Content = time;
