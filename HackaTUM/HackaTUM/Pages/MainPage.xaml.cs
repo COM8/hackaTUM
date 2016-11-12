@@ -150,6 +150,8 @@ namespace HackaTUM
         #region --Events--
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            CalendarHandler.splitCalendarString("!Einführung in die Rechnerarchitektur!!2016 - 10 - 20 06:00:00!");
+
             if (!DataStorage.INSTANCE.dataInitiallyLoaded)
             {
                 await DataStorage.INSTANCE.loadAllDataTaskAsync();
