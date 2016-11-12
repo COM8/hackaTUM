@@ -31,6 +31,7 @@
                         <ToggleSwitch Name="powersaverMode_tgls" Header="Powersaver Mode:" Margin="0,0,0,10" Toggled="powersaverMode_tgls_Toggled"/>
                         <Button Name="createBackup_btn" Content="Create Backup" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="createBackup_btn_Click"/>
                         <Button Name="loadBackup_btn" Content="Load Backup" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="loadBackup_btn_Click"/>
+                        <Button Name="reset_btn" Content="Reset App" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="reset_btn_Click"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -41,7 +42,7 @@
                             <Button x:Name="expandAlarmSettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandAlarm_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
-                    <StackPanel Name="settingsAlarm_sckpl" Visibility="Visible" Padding="5,10,5,10">
+                    <StackPanel Name="settingsAlarm_sckpl" Visibility="Collapsed" Padding="5,10,5,10">
                         <!--ALARM-->
                         <ToggleSwitch Name="smartMode_tgls" Header="Smart Mode:" Margin="0,0,0,10" Toggled="smartMode_tgls_Toggled"/>
                         <ToggleSwitch Name="latestRingTime_tgls" Header="Latest Ring Time:" Toggled="latestRingTime_tgls_Toggled"/>

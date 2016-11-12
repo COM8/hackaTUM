@@ -1,4 +1,5 @@
 ﻿using Ausgaben_Rechner.Classes;
+using HackaTUM.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,8 +53,10 @@ namespace HackaTUM.Pages
         #endregion
 
         #region --Sonstige Metoden (Private)--
-
-
+        private void settingChanged()
+        {
+            DataStorage.INSTANCE.saveSettingsData();
+        }
 
         #endregion
 
@@ -64,6 +67,43 @@ namespace HackaTUM.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataStorage.INSTANCE.settingsData.enabled)
+            {
+                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Green);
+            }
+            else
+            {
+                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Red);
+            }
+
+            if (DataStorage.INSTANCE.settingsData.privateMode)
+            {
+                private_btn.Content = "\xE1F6";
+            }
+            else
+            {
+                private_btn.Content = "\xE1F7";
+            }
+
+            powersaverMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.powerSaverMode;
+            smartMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.smartMode;
+            noGps_tgls.IsOn = DataStorage.INSTANCE.settingsData.gpsEnabled;
+            noStepTacking.IsOn = DataStorage.INSTANCE.settingsData.steptackingEnabled;
+            latestRingTime_tpck.IsEnabled = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+            latestRingTime_tgls.IsOn = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+            if (DataStorage.INSTANCE.settingsData.latestRingTime != null)
+            {
+                DateTime time = DataStorage.INSTANCE.settingsData.latestRingTime;
+                latestRingTime_tpck.Time = new TimeSpan(time.Hour, time.Minute, time.Second);
+            }
+            else
+            {
+                latestRingTime_tpck.Time = new TimeSpan(0, 0, 0);
+            }
+        }
+
         private void expandGeneral_btn_Click(object sender, RoutedEventArgs e)
         {
             if (settingsGeneral_sckpl.Visibility == Visibility.Visible)
@@ -118,7 +158,7 @@ namespace HackaTUM.Pages
                 private_btn.Content = "\xE1F6";
                 DataStorage.INSTANCE.settingsData.privateMode = true;
             }
-            DataStorage.INSTANCE.saveSettingsData();
+            settingChanged();
         }
 
         private void enable_btn_Click(object sender, RoutedEventArgs e)
@@ -133,44 +173,7 @@ namespace HackaTUM.Pages
                 enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Green);
                 DataStorage.INSTANCE.settingsData.enabled = true;
             }
-            DataStorage.INSTANCE.saveSettingsData();
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (DataStorage.INSTANCE.settingsData.enabled)
-            {
-                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Green);
-            }
-            else
-            {
-                enable_btn.Background = new SolidColorBrush(Windows.UI.Colors.Red);
-            }
-
-            if (DataStorage.INSTANCE.settingsData.privateMode)
-            {
-                private_btn.Content = "\xE1F6";
-            }
-            else
-            {
-                private_btn.Content = "\xE1F7";
-            }
-
-            powersaverMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.batterySaverMode;
-            smartMode_tgls.IsOn = DataStorage.INSTANCE.settingsData.smartMode;
-            noGps_tgls.IsOn = DataStorage.INSTANCE.settingsData.gpsEnabled;
-            noStepTacking.IsOn = DataStorage.INSTANCE.settingsData.steptackingEnabled;
-            latestRingTime_tpck.IsEnabled = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
-            latestRingTime_tgls.IsOn = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
-            if (DataStorage.INSTANCE.settingsData.latestRingTime != null)
-            {
-                DateTime time = DataStorage.INSTANCE.settingsData.latestRingTime;
-                latestRingTime_tpck.Time = new TimeSpan(time.Hour, time.Minute, time.Second);
-            }
-            else
-            {
-                latestRingTime_tpck.Time = new TimeSpan(0, 0, 0);
-            }
+            settingChanged();
         }
 
         private async void createBackup_btn_Click(object sender, RoutedEventArgs e)
@@ -185,30 +188,43 @@ namespace HackaTUM.Pages
 
         private void powersaverMode_tgls_Toggled(object sender, RoutedEventArgs e)
         {
-            DataStorage.INSTANCE.settingsData.batterySaverMode = !DataStorage.INSTANCE.settingsData.batterySaverMode;
+            DataStorage.INSTANCE.settingsData.powerSaverMode = !DataStorage.INSTANCE.settingsData.powerSaverMode;
+            settingChanged();
         }
 
         private void smartMode_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             DataStorage.INSTANCE.settingsData.smartMode = !DataStorage.INSTANCE.settingsData.smartMode;
+            settingChanged();
         }
 
         private void noGps_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             DataStorage.INSTANCE.settingsData.gpsEnabled = !DataStorage.INSTANCE.settingsData.gpsEnabled;
+            settingChanged();
         }
 
         private void noStepTacking_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             DataStorage.INSTANCE.settingsData.steptackingEnabled = !DataStorage.INSTANCE.settingsData.steptackingEnabled;
+            settingChanged();
         }
-
-        #endregion
 
         private void latestRingTime_tgls_Toggled(object sender, RoutedEventArgs e)
         {
             DataStorage.INSTANCE.settingsData.latestRingTimeEnabled = !DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
             latestRingTime_tpck.IsEnabled = DataStorage.INSTANCE.settingsData.latestRingTimeEnabled;
+            settingChanged();
         }
+
+        private async void reset_btn_Click(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.settingsData = new Ausgaben_Rechner.Classes.Data.SettingsData();
+            DataStorage.INSTANCE.userData = new Ausgaben_Rechner.Classes.Data.UserData();
+            DataStorage.INSTANCE.saveAllData();
+            await Utillities.showMessageBoxAsync("App got successfully reset!");
+        }
+
+        #endregion
     }
 }

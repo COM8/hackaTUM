@@ -19,7 +19,7 @@ namespace Ausgaben_Rechner.Classes.Data
         [DataMember]
         public bool smartMode;
         [DataMember]
-        public bool batterySaverMode;
+        public bool powerSaverMode;
         [DataMember]
         public DateTime bufferTime;
         [DataMember]
@@ -46,7 +46,7 @@ namespace Ausgaben_Rechner.Classes.Data
             this.enabled = true;
             this.privateMode = false;
             this.smartMode = false;
-            this.batterySaverMode = false;
+            this.powerSaverMode = false;
             this.bufferTime = DateTime.Now;
             this.latestRingTime = DateTime.Now;
         }
