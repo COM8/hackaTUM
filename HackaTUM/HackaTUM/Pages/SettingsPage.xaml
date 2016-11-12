@@ -22,7 +22,7 @@
                 <StackPanel Name="generalDropDownMenue" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Margin="5,5,5,5">
                     <RelativePanel HorizontalAlignment="Right" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Alarm Clock" FontSize="20" Margin="5,5,5,5"/>
+                            <TextBlock Text="General" FontSize="20" Margin="5,5,5,5"/>
                             <Button x:Name="expandGeneralSettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandGeneral_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
@@ -38,7 +38,7 @@
                 <StackPanel Name="alarmDropDownMenue" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Margin="5,5,5,5">
                     <RelativePanel HorizontalAlignment="Right" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="General" FontSize="20" Margin="5,5,5,5"/>
+                            <TextBlock Text="Alarm Clock" FontSize="20" Margin="5,5,5,5"/>
                             <Button x:Name="expandAlarmSettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandAlarm_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
