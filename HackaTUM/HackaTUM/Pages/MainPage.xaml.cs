@@ -1,10 +1,13 @@
 ﻿using Ausgaben_Rechner.Classes;
+using HackaTUM.Classes;
 using HackaTUM.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -16,8 +19,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using static HackaTUM.Classes.Utillities;
-
-// Die Vorlage "Leere Seite" ist unter http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 dokumentiert.
 
 namespace HackaTUM
 {
@@ -40,6 +41,7 @@ namespace HackaTUM
         public MainPage()
         {
             this.InitializeComponent();
+            registerBackgroundTask();
         }
 
         #endregion
@@ -103,8 +105,39 @@ namespace HackaTUM
         #endregion
 
         #region --Sonstige Metoden (Private)--
+        private void registerBackgroundTask()
+        {
+            bool taskRegistered = false;
+            string taskName = "ExampleBackgroundTask";
 
+            foreach (var taskRegistration in BackgroundTaskRegistration.AllTasks)
+            {
+                if (taskRegistration.Value.Name.Equals(taskName))
+                {
+                    taskRegistered = true;
+                    break;
+                }
+            }
+            if (taskRegistered)
+            {
+                return;
+            }
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
 
+            builder.Name = taskName;
+            builder.TaskEntryPoint = "MyBackgroundTask.MyTask";
+            builder.SetTrigger(new SystemTrigger(SystemTriggerType.TimeZoneChange, false));
+            builder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
+            BackgroundTaskRegistration task = builder.Register();
+            task.Completed += new BackgroundTaskCompletedEventHandler(OnCompleted);
+        }
+
+        private void OnCompleted(IBackgroundTaskRegistration task, BackgroundTaskCompletedEventArgs args)
+        {
+            var settings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var key = task.TaskId.ToString();
+            var message = settings.Values[key].ToString();
+        }
 
         #endregion
 
