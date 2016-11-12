@@ -37,21 +37,17 @@ namespace HackaTUM.Classes
         #endregion
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
         #region --Sonstige Metoden (Public)--
-
-
-
-        #endregion
-
         public static String getConnectionInfo(DateTime DestinationTime)
         {
-           return(getConnectionInfo(DataStorage.INSTANCE.userData.adressHome, DataStorage.INSTANCE.userData.adressWork, DestinationTime));
+            return (getConnectionInfo(DataStorage.INSTANCE.userData.adressHome, DataStorage.INSTANCE.userData.adressWork, DestinationTime));
         }
+
         public static String getConnectionInfo(String startAdress, String Destination, DateTime DestinationTime)
         {
             //DataStorage.INSTANCE.userData.adressHome
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + Destination + "&mode=transit&arrival_time="+Convert.ToString((DateTime.UtcNow - DestinationTime).TotalMilliseconds)+"&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo").Result;
+                var response = client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + Destination + "&mode=transit&arrival_time=" + Convert.ToString((DateTime.UtcNow - DestinationTime).TotalMilliseconds) + "&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -67,10 +63,15 @@ namespace HackaTUM.Classes
                 }
             }
         }
-        public static void getneededTime(DateTime DestinationTime)
+
+        public static void getNeededTime(DateTime DestinationTime)
         {
             getDuration(getConnectionInfo(DestinationTime));
         }
+
+        #endregion
+
+        #region --Sonstige Metoden (Private)--
         private static int getDuration(string xml)
         {
             Boolean theLock = true;
@@ -95,6 +96,7 @@ namespace HackaTUM.Classes
             }
             return -1;
         }
+
         private static String extractValue(string line)
         {
             String Value = "";
@@ -117,16 +119,19 @@ namespace HackaTUM.Classes
             }
             return Value;
         }
-            #region --Sonstige Metoden (Protected)--
+
+        #endregion
+
+        #region --Sonstige Metoden (Protected)--
 
 
 
-            #endregion
-            //--------------------------------------------------------Events:---------------------------------------------------------------------\\
-            #region --Events--
+        #endregion
+        //--------------------------------------------------------Events:---------------------------------------------------------------------\\
+        #region --Events--
 
 
 
-            #endregion
-        }
+        #endregion
+    }
 }
