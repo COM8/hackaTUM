@@ -26,9 +26,8 @@
                             <Button x:Name="expandGeneralSettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandGeneral_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
-                    <StackPanel Name="settingsGeneral_sckpl" Visibility="Visible" Padding="5,10,5,10">
+                    <StackPanel Name="settingsGeneral_sckpl" Visibility="Collapsed" Padding="5,10,5,10">
                         <!--GENERAL-->
-                        <ToggleSwitch Name="smartMode_tgls" Header="Enable Smart Mode" Margin="0,0,0,10" Toggled="smartMode_tgls_Toggled"/>
                         <ToggleSwitch Name="powersaverMode_tgls" Header="Enable Powersaver Mode" Margin="0,0,0,10" Toggled="powersaverMode_tgls_Toggled"/>
                         <Button Name="createBackup_btn" Content="Create Backup" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="createBackup_btn_Click"/>
                         <Button Name="loadBackup_btn" Content="Load Backup" Margin="0,0,0,10" HorizontalAlignment="Stretch" Click="loadBackup_btn_Click"/>
@@ -42,12 +41,11 @@
                             <Button x:Name="expandAlarmSettings_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE019;" Background="Transparent" FontSize="25" Click="expandAlarm_btn_Click"/>
                         </StackPanel>
                     </RelativePanel>
-                    <StackPanel Name="settingsAlarm_sckpl" Visibility="Collapsed">
+                    <StackPanel Name="settingsAlarm_sckpl" Visibility="Collapsed" Padding="5,10,5,10">
                         <!--ALARM-->
-                        <TextBlock Text="1"/>
-                        <TextBlock Text="2"/>
-                        <TextBlock Text="3"/>
-                        <TextBlock Text="4"/>
+                        <ToggleSwitch Name="smartMode_tgls" Header="Enable Smart Mode" Margin="0,0,0,10" Toggled="smartMode_tgls_Toggled"/>
+                        <TextBlock Text="Last ring time:"/>
+                        <TimePicker Name="lastRingTime_tpck" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </StackPanel>
 
