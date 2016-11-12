@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
+using Windows.UI.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.QueryStringDotNET;
 
 namespace MyBackgroundTask
 {
@@ -47,7 +50,7 @@ namespace MyBackgroundTask
         #endregion
 
         #region --Sonstige Metoden (Private)--
-        private void createPush()
+        private void createPush(String s)
         {
 
         }
