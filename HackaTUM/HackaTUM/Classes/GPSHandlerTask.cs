@@ -1,29 +1,20 @@
-﻿using Ausgaben_Rechner.Classes;
-using HackaTUM.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System.Threading;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 
-namespace HackaTUM.Pages
+namespace HackaTUM.Classes
 {
-    public sealed partial class SmartClockPage : Page
+    public class GPSHandlerTask
     {
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
-
-
+        public static GPSHandlerTask INSTANCE = new GPSHandlerTask();
+        private Task t;
+        private MainPage rootPage;
 
         #endregion
         //--------------------------------------------------------Construktoren:--------------------------------------------------------------\\
@@ -32,37 +23,55 @@ namespace HackaTUM.Pages
         /// Basic empty Constructor
         /// </summary>
         /// <history>
-        /// 11/11/2016  Created [Fabian Sauter]
+        /// 12/11/2016  Created [Fabian Sauter]
         /// </history>
-        public SmartClockPage()
+        public GPSHandlerTask()
         {
-            this.InitializeComponent();
+            this.rootPage = null;
+            this.t = null;
         }
 
         #endregion
         //--------------------------------------------------------Set-, Get- Metoden:---------------------------------------------------------\\
         #region --Set-, Get- Metode--
-        private DateTime getNextAlarm()
+        public async static Task<Geoposition> getLocation()
         {
-            return DateTime.Now;
+            var accessStatur = await Geolocator.RequestAccessAsync();
+            
+            if(accessStatur != GeolocationAccessStatus.Allowed)
+            {
+                throw new Exception();
+            }
+
+            Geolocator locator = new Geolocator { DesiredAccuracyInMeters = 0 };
+            var pos = await locator.GetGeopositionAsync();
+            return pos;
         }
+
 
         #endregion
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
         #region --Sonstige Metoden (Public)--
-
+        public void init(MainPage rootPage)
+        {
+            this.rootPage = rootPage;
+            this.t = initAsync();
+        }
 
 
         #endregion
 
         #region --Sonstige Metoden (Private)--
-        private void setNextWakeUpTime()
+        private async Task initAsync()
         {
-            DateTime time = getNextAlarm();
-            alarm_lbl.Text = time.Hour + ":" + time.Minute;
+            Geoposition pos = await GPSHandlerTask.getLocation();
+            Debug.WriteLine(pos.Coordinate.Longitude);
 
-            int minutes = TravelDataManager.getNeededTimeInSeconds(DateTime.Now) / 60;
-            timeToGetToWork_lbl.Text = minutes + " Minutes";
+        }
+
+        private void sendToAzure()
+        {
+
         }
 
         #endregion
@@ -74,10 +83,8 @@ namespace HackaTUM.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            setNextWakeUpTime();
-        }
+
+
 
         #endregion
     }

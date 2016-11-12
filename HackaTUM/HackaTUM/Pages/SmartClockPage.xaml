@@ -9,11 +9,14 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <cont:Clock Margin="20,20,20,20"/>
-            <TextBlock Text="The alarm for tomorow is set for:" FontSize="20"/>
-            <TextBlock x:Name="alarm_lbl" Text="00:00" FontSize="20"/>
-            <TextBlock x:Name="timeToGetToWork_lbl" Text="Time it takes" FontSize="20"/>
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10,10,10,10">
+                <cont:Clock Margin="20,20,20,20"/>
+                <TextBlock Text="The alarm for tomorow is set for:" FontSize="20"/>
+                <TextBlock x:Name="alarm_lbl" Text="00:00" FontSize="40"/>
+                <TextBlock Text="And to reach your target you have to use the public transport for:"  TextWrapping="WrapWholeWords"/>
+                <TextBlock x:Name="timeToGetToWork_lbl" Text="Time it takes" FontSize="25" Foreground="{ThemeResource SystemAccentColor}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
