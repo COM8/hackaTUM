@@ -136,7 +136,7 @@ namespace HackaTUM.Pages
             DataStorage.INSTANCE.saveSettingsData();
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataStorage.INSTANCE.settingsData.enabled)
             {
