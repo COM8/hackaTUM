@@ -123,14 +123,16 @@ namespace HackaTUM
                 DataStorage.INSTANCE.dataInitiallyLoaded = true;
             }
 
-            if (DataStorage.INSTANCE.settingsData.initialRun)
+            /*if (DataStorage.INSTANCE.settingsData.initialRun)
             {
                 mainFrame.Navigate(typeof(SettingsPage));
+                DataStorage.INSTANCE.settingsData.initialRun = false;
             }
             else
             {
                 navigateToSelectedPage();
-            }
+            }*/
+            navigateToSelectedPage();
         }
 
         private void openSplitView_hbtn_Click(object sender, RoutedEventArgs e)
