@@ -240,8 +240,8 @@ namespace Ausgaben_Rechner.Classes
             {
                 FileSavePicker picker = new FileSavePicker();
                 picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-                picker.FileTypeChoices.Add("Ausgaben", new List<string>() { ".ujson" });
-                picker.FileTypeChoices.Add("Einstellungen", new List<string>() { ".ejson" });
+                picker.FileTypeChoices.Add("User Data", new List<string>() { ".ujson" });
+                picker.FileTypeChoices.Add("Settings", new List<string>() { ".ejson" });
                 DateTime now = DateTime.Now.ToLocalTime();
                 string name = "" + now.Day + '.' + now.Month + '.' + now.Year + ' ' + now.Hour + '.' + now.Minute;
                 picker.SuggestedFileName = name;
@@ -261,16 +261,16 @@ namespace Ausgaben_Rechner.Classes
                     {
                         StorageFile sF = storageItem as StorageFile;
                         await sF.CopyAndReplaceAsync(file);
-                        await showMessageBoxAsync("Erfolgreich gespeichert als:\n" + file.Name);
+                        await showMessageBoxAsync("Successfully saved to file:\n" + file.Name);
                     }
                     else
                     {
-                        await showMessageBoxAsync("Zieldatei existiert nicht! \nBitte erneut versuchen.");
+                        await showMessageBoxAsync("Target file does not exist! \nPlease retry.");
                     }
                 }
                 else
                 {
-                    await showMessageBoxAsync("Datei konnte nicht erstellt werden.");
+                    await showMessageBoxAsync("Unable to create th file.");
                 }
             }
             catch (Exception e)
@@ -312,17 +312,17 @@ namespace Ausgaben_Rechner.Classes
                     {
                         StorageFile sF = storageItem as StorageFile;
                         await file.CopyAndReplaceAsync(sF);
-                        await showMessageBoxAsync("Erfolgreich gespeichert als:\n" + file.Name);
+                        await showMessageBoxAsync("File sucessfully saved as:\n" + file.Name);
                         loadAllDataAsync();
                     }
                     else
                     {
-                        await showMessageBoxAsync("Zieldatei existiert nicht! \nBitte erneut versuchen.");
+                        await showMessageBoxAsync("Target file does not exist! \nPlease retry.");
                     }
                 }
                 else
                 {
-                    await showMessageBoxAsync("Datei konnte nicht erstellt werden.");
+                    await showMessageBoxAsync("Unable to create th file.");
                 }
             }
             catch (Exception e)
