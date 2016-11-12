@@ -9,8 +9,11 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <StackPanel Name="generalDropDownMenue" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Maps:MapControl x:Name="map" Grid.Row="0" MapServiceToken="x1zeW9yRJqVIly7wY3h8~m4H8jgrRGnmSmm_4Xq1z8A~Aj6WlwadACI6n1pPdPuZQzIjhR0hiDKJyAmFQZLX4DTGkuzFaA6ZOROPGoOZYsAe" ZoomInteractionMode="GestureAndControl" LandmarksVisible="True" IsRightTapEnabled="true" HorizontalAlignment="Stretch">
+            <StackPanel Name="generalDropDownMenue" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="5,5,5,5" HorizontalAlignment="Stretch">
                 <RelativePanel HorizontalAlignment="Right" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Adresses:" FontSize="20" Margin="5,5,5,5"/>
@@ -34,7 +37,7 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Maps:MapControl x:Name="map" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MapServiceToken="x1zeW9yRJqVIly7wY3h8~m4H8jgrRGnmSmm_4Xq1z8A~Aj6WlwadACI6n1pPdPuZQzIjhR0hiDKJyAmFQZLX4DTGkuzFaA6ZOROPGoOZYsAe" LandmarksVisible="True" IsRightTapEnabled="true"/>
-        </StackPanel>
+        </Maps:MapControl>
     </Grid>
+
 </Page>

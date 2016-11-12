@@ -55,24 +55,6 @@ namespace HackaTUM.Pages
         #endregion
 
         #region --Sonstige Metoden (Private)--
-        private void populateAdresses()
-        {
-            Geopoint home = DataStorage.INSTANCE.userData.adressHome;
-            Geopoint work = DataStorage.INSTANCE.userData.adressWork;
-
-            if(home != null)
-            {
-                latHome_tbx.Text = home.Position.Latitude.ToString();
-                lonHome_tbx.Text = home.Position.Longitude.ToString();
-            }
-
-            if (work != null)
-            {
-                latWork_tbx.Text = work.Position.Latitude.ToString();
-                lonWork_tbx.Text = work.Position.Longitude.ToString();
-            }
-        }
-
         private void populateMap()
         {
             Geopoint home = DataStorage.INSTANCE.userData.adressHome;
@@ -99,6 +81,24 @@ namespace HackaTUM.Pages
                 map.MapElements.Add(workIcon);
                 map.Center = home;
                 map.ZoomLevel = 14;
+            }
+        }
+
+        private void populateAdresses()
+        {
+            Geopoint home = DataStorage.INSTANCE.userData.adressHome;
+            Geopoint work = DataStorage.INSTANCE.userData.adressWork;
+
+            if(home != null)
+            {
+                latHome_tbx.Text = home.Position.Latitude.ToString();
+                lonHome_tbx.Text = home.Position.Longitude.ToString();
+            }
+
+            if (work != null)
+            {
+                latWork_tbx.Text = work.Position.Latitude.ToString();
+                lonWork_tbx.Text = work.Position.Longitude.ToString();
             }
         }
 
