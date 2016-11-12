@@ -39,7 +39,7 @@ namespace HackaTUM.Classes
         #region --Sonstige Metoden (Public)--
         public static String getConnectionInfo(DateTime DestinationTime)
         {
-            return (getConnectionInfo(DataStorage.INSTANCE.userData.adressHome, DataStorage.INSTANCE.userData.adressWork, DestinationTime));
+            return (getConnectionInfo(Convert.ToString(DataStorage.INSTANCE.userData.adressHome.Position.Latitude+","+DataStorage.INSTANCE.userData.adressHome.Position.Longitude), Convert.ToString(DataStorage.INSTANCE.userData.adressWork.Position.Latitude + "," + DataStorage.INSTANCE.userData.adressWork.Position.Longitude), DestinationTime));
         }
 
         public static String getConnectionInfo(String startAdress, String Destination, DateTime DestinationTime)

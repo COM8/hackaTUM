@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.UI.Notifications;
-using Microsoft.Toolkit.Uwp.Notifications;
-using Microsoft.QueryStringDotNET;
 
 namespace MyBackgroundTask
 {
@@ -52,7 +44,8 @@ namespace MyBackgroundTask
         #region --Sonstige Metoden (Private)--
         private void createPush(String s)
         {
-
+            /*MainPage rootPage = null;
+            rootPage.NotifyUser("A toast was clicked on with activation arguments: " + arguments, NotifyType.StatusMessage);*/
         }
 
         #endregion

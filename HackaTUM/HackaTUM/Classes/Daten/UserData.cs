@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Windows.Devices.Geolocation;
 
 namespace Ausgaben_Rechner.Classes.Data
 {
@@ -11,9 +12,9 @@ namespace Ausgaben_Rechner.Classes.Data
         public const string JSON_FILE_NAME = "userData.json";
 
         [DataMember]
-        public string adressWork;
+        public Geopoint adressWork;
         [DataMember]
-        public string adressHome;
+        public Geopoint adressHome;
         [DataMember]
         public string iCall;
 
