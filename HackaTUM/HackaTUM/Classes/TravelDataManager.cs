@@ -64,9 +64,9 @@ namespace HackaTUM.Classes
             }
         }
 
-        public static void getNeededTime(DateTime DestinationTime)
+        public static int getNeededTimeInSeconds(DateTime DestinationTime)
         {
-            getDuration(getConnectionInfo(DestinationTime));
+            return getDuration(getConnectionInfo(DestinationTime));
         }
 
         #endregion
