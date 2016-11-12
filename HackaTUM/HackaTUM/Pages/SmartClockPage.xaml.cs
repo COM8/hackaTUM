@@ -42,8 +42,10 @@ namespace HackaTUM.Pages
         #endregion
         //--------------------------------------------------------Set-, Get- Metoden:---------------------------------------------------------\\
         #region --Set-, Get- Metode--
-
-
+        private DateTime getNextAlarm()
+        {
+            return DateTime.Now;
+        }
 
         #endregion
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
@@ -56,6 +58,9 @@ namespace HackaTUM.Pages
         #region --Sonstige Metoden (Private)--
         private void setNextWakeUpTime()
         {
+            DateTime time = getNextAlarm();
+            alarm_lbl.Text = time.Hour + ":" + time.Minute;
+
             int minutes = TravelDataManager.getNeededTimeInSeconds(DateTime.Now) / 60;
             timeToGetToWork_lbl.Text = minutes + " Minutes";
         }
