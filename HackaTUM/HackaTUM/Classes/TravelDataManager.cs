@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 
 namespace HackaTUM.Classes
 {
@@ -73,7 +74,7 @@ namespace HackaTUM.Classes
         }
         public static int parseNeededTime(String theOutput)
         {
-
+            return (0);
         }
         #region --Sonstige Metoden (Protected)--
 
