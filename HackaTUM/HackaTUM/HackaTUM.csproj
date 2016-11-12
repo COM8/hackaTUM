@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\TravelDataManager.cs" />
     <Compile Include="Classes\Utillities.cs" />
     <Compile Include="Classes\Daten\DataStorage.cs" />
     <Compile Include="Classes\Daten\SettingsData.cs" />
