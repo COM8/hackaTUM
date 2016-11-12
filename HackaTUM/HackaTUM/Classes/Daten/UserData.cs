@@ -29,8 +29,8 @@ namespace Ausgaben_Rechner.Classes.Data
         /// </history>
         public UserData()
         {
-            this.adressHome = null;
-            this.adressWork = null;
+            this.adressHome = new Geopoint(new BasicGeoposition() { Latitude = 48.17482829999999, Longitude = 11.63961310000002 });
+            this.adressWork = new Geopoint(new BasicGeoposition() { Latitude = 48.26467100000001, Longitude = 11.671390999999971 });
             this.iCall = null;
         }
 
