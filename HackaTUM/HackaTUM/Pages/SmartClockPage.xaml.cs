@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ausgaben_Rechner.Classes;
+using HackaTUM.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -67,5 +69,13 @@ namespace HackaTUM.Pages
 
 
         #endregion
+
+        private void recalc_Click(object sender, RoutedEventArgs e)
+        {
+            DataStorage.INSTANCE.userData.adressHome = "89614";
+            DataStorage.INSTANCE.userData.adressWork = "München";
+            int time = TravelDataManager.getNeededTimeInSeconds(DateTime.Now);
+            recalc.Content = time;
+        }
     }
 }

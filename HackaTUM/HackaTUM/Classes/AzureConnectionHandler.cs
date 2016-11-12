@@ -9,11 +9,11 @@ using Microsoft.Azure.Devices;
 namespace HackaTUM.Classes
 {
     class AzureConnectionHandler
-    {
+    {/*
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
 
-        private DeviceClient deviceClient;
+        //private DeviceClient deviceClient;
         private string iotHubHostname = "{iot hub hostname}";
         private string deviceId = "{device id}";
         private string deviceKey = "{device key}";
@@ -64,6 +64,6 @@ namespace HackaTUM.Classes
 
         #endregion
 
-
+        */
     }
 }

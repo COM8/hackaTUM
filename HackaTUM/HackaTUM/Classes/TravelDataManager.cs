@@ -47,7 +47,8 @@ namespace HackaTUM.Classes
             //DataStorage.INSTANCE.userData.adressHome
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + Destination + "&mode=transit&arrival_time=" + Convert.ToString((DateTime.UtcNow - DestinationTime).TotalMilliseconds) + "&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo").Result;
+                string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + Destination + "&mode=transit&arrival_time=" + Convert.ToString((DateTime.UtcNow - DestinationTime).TotalMilliseconds) + "&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
+                var response = client.GetAsync(s).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
