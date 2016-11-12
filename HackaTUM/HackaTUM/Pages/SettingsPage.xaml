@@ -12,8 +12,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <ScrollViewer x:Name="settings_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Row="2">
-            <StackPanel x:Name="settings_stckpl" VerticalAlignment="Stretch">
+        <ScrollViewer x:Name="settings_scv" Margin="10,10,10,10" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="2">
+            <StackPanel x:Name="settings_stckpl" VerticalAlignment="Stretch" Margin="10,0,10,10">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20">
                     <Button x:Name="enable_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE7E8;" Background="Green" FontSize="100" Click="enable_btn_Click" Margin="5,5,5,5"/>
                     <Button x:Name="private_btn" FontFamily="Segoe MDL2 Assets" Content="&#xE1F6;" Background="Transparent" FontSize="100" Click="private_btn_Click" Margin="5,5,5,5"/>
