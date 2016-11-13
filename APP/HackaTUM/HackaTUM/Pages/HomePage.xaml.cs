@@ -72,7 +72,7 @@ namespace HackaTUM.Pages
             if(data != null)
             {
                 lecturName_lbl.Text = data.entry;
-                lecturTime_lbl.Text = data.date.ToString();
+                lecturTime_lbl.Text = data.date.Hour.ToString().PadLeft(2, '0') + ":" + data.date.Minute.ToString().PadLeft(2, '0');
             }
         }
 
