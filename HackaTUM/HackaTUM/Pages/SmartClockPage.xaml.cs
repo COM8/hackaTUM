@@ -56,13 +56,22 @@ namespace HackaTUM.Pages
         #endregion
 
         #region --Sonstige Metoden (Private)--
-        private void setNextWakeUpTime()
+        private void setNextWakeUpTime(TravelDataEntity data)
         {
-            DateTime time = getNextAlarm();
-            alarm_lbl.Text = time.Hour + ":" + time.Minute;
+            DateTime time = data.startTime.AddMinutes(-45);
+            alarm_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
+        }
 
-            int minutes = TravelDataManager.getNeededTimeInSeconds(DateTime.Now) / 60;
-            timeToGetToWork_lbl.Text = minutes + " Minutes";
+        private void populateDiagramm(TravelDataEntity data)
+        {
+            DateTime time = DateTime.Now;
+            startAdress_lbl.Text = data.startAdress;
+            targetAdress_lbl.Text = data.targetAdress;
+            time = data.startTime;
+            startTime_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
+            time = time.AddMinutes(data.timeInMinutes);
+            targetTime_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
+            timeToGetToWork_lbl.Text = data.timeInMinutes + " Minute(s)";
         }
 
         #endregion
@@ -76,7 +85,10 @@ namespace HackaTUM.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            setNextWakeUpTime();
+            DateTime startTime = DateTime.Now;
+            TravelDataEntity data = TravelDataManager.getTravelData(startTime);
+            setNextWakeUpTime(data);
+            populateDiagramm(data);
         }
 
         #endregion

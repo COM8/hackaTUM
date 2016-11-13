@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System.Text;
+using System.Threading.Tasks;
+using static HackaTUM.Classes.Utillities;
 
-namespace HackaTUM.Pages
+namespace HackaTUM.Classes
 {
-    public sealed partial class HomePage : Page
+    class TravelDataEntity
     {
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
-
-
+        public string targetAdress;
+        public string startAdress;
+        public DateTime startTime;
+        public int timeInMinutes;
+        public TransportationDevices device;
 
         #endregion
         //--------------------------------------------------------Construktoren:--------------------------------------------------------------\\
@@ -29,11 +24,15 @@ namespace HackaTUM.Pages
         /// Basic empty Constructor
         /// </summary>
         /// <history>
-        /// 11/11/2016  Created [Fabian Sauter]
+        /// 13/11/2016  Created [Fabian Sauter]
         /// </history>
-        public HomePage()
+        public TravelDataEntity(string startAdress, string targetAdress, DateTime startTime, int timeInMinutes, TransportationDevices device)
         {
-            this.InitializeComponent();
+            this.startAdress = startAdress;
+            this.targetAdress = targetAdress;
+            this.startTime = startTime;
+            this.timeInMinutes = timeInMinutes;
+            this.device = device;
         }
 
         #endregion
@@ -63,9 +62,8 @@ namespace HackaTUM.Pages
         #endregion
         //--------------------------------------------------------Events:---------------------------------------------------------------------\\
         #region --Events--
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
+
+
 
         #endregion
     }
