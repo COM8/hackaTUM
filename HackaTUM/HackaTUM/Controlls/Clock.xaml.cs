@@ -190,6 +190,10 @@ namespace HackaTUM.Controlls
                 hourHand(Time.Hour, Time.Minute, Time.Second);
             };
             timer.Start();
+
+            if (IsRealTime) Time = DateTime.Now;
+            minuteHand(Time.Minute, Time.Second);
+            hourHand(Time.Hour, Time.Minute, Time.Second);
         }
 
         public Brush RimForeground
