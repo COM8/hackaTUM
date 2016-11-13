@@ -13,7 +13,8 @@ namespace HackaTUM.Classes
     {
         //--------------------------------------------------------Atribute:-------------------------------------------------------------------\\
         #region --Atribute--
-        public static List<StringDataEntity> calendarEntries = new List<StringDataEntity>();
+        private static List<StringDataEntity> calendarEntries = new List<StringDataEntity>();
+        private static StringDataEntity nextEntrie = new StringDataEntity("", DateTime.Now);
 
         #endregion
         //--------------------------------------------------------Construktoren:--------------------------------------------------------------\\
@@ -31,38 +32,71 @@ namespace HackaTUM.Classes
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
         #region --Sonstige Metoden (Public)--
 
+        public static List<StringDataEntity> getCalendarList()
+        {
+            return splitCalendarString(getICalUrl());
+        }
+
         public static String getICalUrl()
         {
             return (Convert.ToString(DataStorage.INSTANCE.userData.iCall));
         }
 
-        //private static int getDuration(string xml)
+        //private static List<StringDataEntity> splitCalendarString(string s)
         //{
-        //    Boolean theLock = true;
-        //    string status = "", duration = "";
-        //    string[] lines = xml.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-        //    foreach (string line in lines)
-        //    {
-        //        if (line.Contains("status"))
-        //        {
-        //            status = extractValue(line);
+        //    string[] lines = s.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+        //    char delimeter = '!';
 
-        //        }
-        //        else if (line.Contains("value") && theLock)
-        //        {
-        //            duration = extractValue(line);
-        //            theLock = false;
-        //        }
-        //    }
-        //    if (status == "OK")
+        //    for (int line = 0; line < lines.Length; line++)
         //    {
-        //        return int.Parse(duration);
+        //        string source = lines[line];
+        //        string entry = string.Empty;
+        //        string dateString = string.Empty;
+                
+        //        int count = 0;
+        //        for (int i = 0; i < source.Length; i++)
+        //        {
+        //            if (source[i] != delimeter && count == 1)
+        //            {
+        //                entry += source[i];
+        //            }
+        //            else if (source[i] != delimeter && count > 2)
+        //            {
+        //                dateString += source[i];
+        //            }
+        //            else count++;               
+        //        }
+        //        DateTime date = Convert.ToDateTime(dateString);
+        //        calendarEntries.Add(new StringDataEntity(entry, DateTime.Now));     //DateTime.Now durch in Date konvertierter date-String ersetzen
+        //        Debug.WriteLine(entry);
+        //        Debug.WriteLine(date);
         //    }
-        //    return -1;
+
+        //    return calendarEntries;
         //}
 
+        public static StringDataEntity getNextEntry()
+        {
+            DateTime currentDate = DateTime.Now;
+            List<StringDataEntity> workList = calendarEntries;
+            List<StringDataEntity> workList2 = new List<StringDataEntity>();
+            for (int i = 0; i < workList.Count; i++)
+            {
+                if (currentDate.CompareTo(workList[i].date) > 0)
+                {
+                    workList2.Add(workList[i]);
+                }                              
+            }
+            nextEntrie = workList2[0];
+            return nextEntrie;
+        }
 
-        public static List<StringDataEntity> splitCalendarString(string s)
+
+        #endregion
+
+        #region --Sonstige Metoden (Private)--
+
+        private static List<StringDataEntity> splitCalendarString(string s)
         {
             string[] lines = s.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
             char delimeter = '!';
@@ -72,7 +106,7 @@ namespace HackaTUM.Classes
                 string source = lines[line];
                 string entry = string.Empty;
                 string dateString = string.Empty;
-                
+
                 int count = 0;
                 for (int i = 0; i < source.Length; i++)
                 {
@@ -84,21 +118,16 @@ namespace HackaTUM.Classes
                     {
                         dateString += source[i];
                     }
-                    else count++;               
+                    else count++;
                 }
                 DateTime date = Convert.ToDateTime(dateString);
                 calendarEntries.Add(new StringDataEntity(entry, DateTime.Now));     //DateTime.Now durch in Date konvertierter date-String ersetzen
-                Debug.WriteLine(entry);
-                Debug.WriteLine(date);
+                //Debug.WriteLine(entry);
+                //Debug.WriteLine(date);
             }
 
             return calendarEntries;
         }
-
-        #endregion
-
-        #region --Sonstige Metoden (Private)--
-
 
         #endregion
 
@@ -114,5 +143,5 @@ namespace HackaTUM.Classes
 
         #endregion
 
-        }
+    }
     }
