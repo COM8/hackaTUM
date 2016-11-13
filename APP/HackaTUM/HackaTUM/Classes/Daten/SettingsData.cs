@@ -47,7 +47,7 @@ namespace Ausgaben_Rechner.Classes.Data
             this.privateMode = false;
             this.smartMode = false;
             this.powerSaverMode = false;
-            this.bufferTime = DateTime.Now;
+            this.bufferTime = new DateTime(2016,1,1,0,45,0);
             this.latestRingTime = DateTime.Now;
         }
 
