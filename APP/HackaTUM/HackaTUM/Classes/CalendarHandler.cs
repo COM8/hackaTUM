@@ -66,11 +66,15 @@ namespace HackaTUM.Classes
             List<StringDataEntity> workList2 = new List<StringDataEntity>();
             for (int i = 0; i < workList.Count; i++)
             {
-                if (currentDate.CompareTo(workList[i].date) > 0)
+                if (currentDate.CompareTo(workList[i].date) < 0)
                 {
                     workList2.Add(workList[i]);
                 }                              
             }
+            List<StringDataEntity> objListOrder = new List<StringDataEntity>();
+            //List<StringDataEntity> SortedList = objListOrder.OrderBy(o => o.date).ToList();
+
+            workList2.Sort((x, y) => x.date.CompareTo(y.date));
             nextEntrie = workList2[0];
             return nextEntrie;
         }
