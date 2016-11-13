@@ -31,7 +31,7 @@ namespace Ausgaben_Rechner.Classes.Data
         {
             this.adressHome = new Geopoint(new BasicGeoposition() { Latitude = 48.17482829999999, Longitude = 11.63961310000002 });
             this.adressWork = new Geopoint(new BasicGeoposition() { Latitude = 48.26467100000001, Longitude = 11.671390999999971 });
-            this.iCall = null;
+            this.iCall = "http://smartalarm.cloudapp.net/main.php?key=24E1C8AC9B2BAE0E&pToken=921724D0891C3CFB31CAED7DA7AEF76926653A3C6BAE37E0176C4FE32CCB4E48";
         }
 
         #endregion

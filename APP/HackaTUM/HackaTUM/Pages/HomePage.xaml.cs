@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HackaTUM.Classes;
+using HackaTUM.Classes.Daten;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -65,6 +67,13 @@ namespace HackaTUM.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            CalendarHandler.getCalendarList();
+            StringDataEntity data = CalendarHandler.getNextEntry();
+            if(data != null)
+            {
+                lecturName_lbl.Text = data.entry;
+                lecturTime_lbl.Text = data.date.ToString();
+            }
         }
 
         #endregion

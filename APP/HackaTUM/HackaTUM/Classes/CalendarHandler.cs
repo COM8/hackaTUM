@@ -99,7 +99,7 @@ namespace HackaTUM.Classes
         private static List<StringDataEntity> splitCalendarString(string s)
         {
             string[] lines = s.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            char delimeter = '!';
+            char delimeter = '\"';
 
             for (int line = 0; line < lines.Length; line++)
             {
