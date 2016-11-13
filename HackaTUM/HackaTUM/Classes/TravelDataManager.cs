@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Windows.Data.Xml.Dom;
+using System.Diagnostics;
 
 namespace HackaTUM.Classes
 {
@@ -37,18 +39,58 @@ namespace HackaTUM.Classes
         #endregion
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
         #region --Sonstige Metoden (Public)--
-        public static String getConnectionInfo(DateTime DestinationTime)
+        public static TravelDataEntity getTravelData(DateTime DestinationTime)
+        {
+            TravelDataEntity data = null;
+            try
+            {
+                string xml = getConnectionInfo(DestinationTime);
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(xml);
+                if (isOk(xmlDoc.SelectSingleNode("/DistanceMatrixResponse/status")))
+                {
+                    string startA = xmlDoc.SelectSingleNode("/DistanceMatrixResponse/origin_address").InnerText;
+                    string targetA = xmlDoc.SelectSingleNode("/DistanceMatrixResponse/destination_address").InnerText;
+                    int duration = int.Parse(xmlDoc.SelectSingleNode("/DistanceMatrixResponse/row/element/duration/value").InnerText) / 60;
+                    data = new TravelDataEntity(startA, targetA, DateTime.Now.AddMinutes(7), duration, Utillities.TransportationDevices.PublicTransport);
+                    return data;
+                }
+            }
+            catch
+            {
+                
+            }
+            data = new TravelDataEntity("start", "target", DateTime.Now, -1, Utillities.TransportationDevices.PublicTransport);
+            return data;
+        }
+
+        #endregion
+
+        #region --Sonstige Metoden (Private)--
+        private static bool isOk(IXmlNode node)
+        {
+            if(node != null)
+            {
+                if (node.NodeName.Equals("status") && node.InnerText.ToString().Equals("OK"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static String getConnectionInfo(DateTime DestinationTime)
         {
             return (getConnectionInfo(Convert.ToString(DataStorage.INSTANCE.userData.adressHome.Position.Latitude.ToString().Replace(',', '.') + "," + DataStorage.INSTANCE.userData.adressHome.Position.Longitude.ToString().Replace(',', '.')), Convert.ToString(DataStorage.INSTANCE.userData.adressWork.Position.Latitude.ToString().Replace(',', '.') + "," + DataStorage.INSTANCE.userData.adressWork.Position.Longitude.ToString().Replace(',', '.')), DestinationTime));
         }
 
-        public static String getConnectionInfo(String startAdress, String destination, DateTime DestinationTime)
+        private static String getConnectionInfo(String startAdress, String destination, DateTime DestinationTime)
         {
-            string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
 
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync("https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo").Result;
+                string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
+                var response = client.GetAsync(s).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -63,62 +105,6 @@ namespace HackaTUM.Classes
                     return (null);
                 }
             }
-        }
-
-        public static int getNeededTimeInSeconds(DateTime DestinationTime)
-        {
-            return getDuration(getConnectionInfo(DestinationTime));
-        }
-
-        #endregion
-
-        #region --Sonstige Metoden (Private)--
-        private static int getDuration(string xml)
-        {
-            Boolean theLock = true;
-            string status = "", duration = "";
-            string[] lines = xml.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            foreach (string line in lines)
-            {
-                if (line.Contains("status"))
-                {
-                    status = extractValue(line);
-
-                }
-                else if (line.Contains("value") && theLock)
-                {
-                    duration = extractValue(line);
-                    theLock = false;
-                }
-            }
-            if (status == "OK")
-            {
-                return int.Parse(duration);
-            }
-            return -1;
-        }
-
-        private static String extractValue(string line)
-        {
-            String Value = "";
-            int phase = 0;
-            char[] charArray = line.ToCharArray();
-            foreach (char didgit in charArray)
-            {
-                if (phase == 0 && didgit == '>')
-                {
-                    phase++;
-                }
-                else if (phase == 1 && didgit != '<')
-                {
-                    Value += didgit;
-                }
-                else if (didgit == '<' && phase == 1)
-                {
-                    phase++;
-                }
-            }
-            return Value;
         }
 
         #endregion

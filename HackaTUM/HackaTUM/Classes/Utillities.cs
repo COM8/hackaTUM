@@ -19,6 +19,14 @@ namespace HackaTUM.Classes
             SettingsPage
         }
 
+        public enum TransportationDevices
+        {
+            Car,
+            PublicTransport,
+            Walking,
+            Bike
+        }
+
         #endregion
         //--------------------------------------------------------Construktoren:--------------------------------------------------------------\\
         #region --Construktoren--
