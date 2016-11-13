@@ -1,5 +1,6 @@
 ﻿using Ausgaben_Rechner.Classes;
 using HackaTUM.Classes;
+using HackaTUM.Classes.Daten;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,22 +57,20 @@ namespace HackaTUM.Pages
         #endregion
 
         #region --Sonstige Metoden (Private)--
-        private void setNextWakeUpTime(TravelDataEntity data)
-        {
-            DateTime time = data.startTime.AddMinutes(-45);
-            alarm_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
-        }
-
         private void populateDiagramm(TravelDataEntity data)
         {
             DateTime time = DateTime.Now;
+            time = data.startTime.AddMinutes(-4);
+            
             startAdress_lbl.Text = data.startAdress;
             targetAdress_lbl.Text = data.targetAdress;
-            time = data.startTime;
-            startTime_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
-            time = time.AddMinutes(data.timeInMinutes);
             targetTime_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
+            time = time.AddMinutes(-data.timeInMinutes);
+            startTime_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
             timeToGetToWork_lbl.Text = data.timeInMinutes + " Minute(s)";
+
+            time = time.AddMinutes(-45);
+            alarm_lbl.Text = time.Hour.ToString().PadLeft(2, '0') + ":" + time.Minute.ToString().PadLeft(2, '0');
         }
 
         #endregion
@@ -85,10 +84,15 @@ namespace HackaTUM.Pages
         #region --Events--
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            DateTime startTime = DateTime.Now;
-            TravelDataEntity data = TravelDataManager.getTravelData(startTime);
-            setNextWakeUpTime(data);
-            populateDiagramm(data);
+            //CalendarHandler.getCalendarList();
+            StringDataEntity data = CalendarHandler.getNextEntry();
+            if (data == null)
+            {
+                return;
+            }
+
+            TravelDataEntity entity = TravelDataManager.getTravelData(data.date);
+            populateDiagramm(entity);
         }
 
         #endregion

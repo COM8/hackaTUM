@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,41 +40,24 @@ namespace HackaTUM.Classes
 
         public static String getICalUrl()
         {
-            return (Convert.ToString(DataStorage.INSTANCE.userData.iCall));
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync(DataStorage.INSTANCE.userData.iCall).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = response.Content;
+
+                    string responseString = responseContent.ReadAsStringAsync().Result;
+
+                    return responseString;
+                }
+                else
+                {
+                    return (null);
+                }
+            }
         }
-
-        //private static List<StringDataEntity> splitCalendarString(string s)
-        //{
-        //    string[] lines = s.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-        //    char delimeter = '!';
-
-        //    for (int line = 0; line < lines.Length; line++)
-        //    {
-        //        string source = lines[line];
-        //        string entry = string.Empty;
-        //        string dateString = string.Empty;
-                
-        //        int count = 0;
-        //        for (int i = 0; i < source.Length; i++)
-        //        {
-        //            if (source[i] != delimeter && count == 1)
-        //            {
-        //                entry += source[i];
-        //            }
-        //            else if (source[i] != delimeter && count > 2)
-        //            {
-        //                dateString += source[i];
-        //            }
-        //            else count++;               
-        //        }
-        //        DateTime date = Convert.ToDateTime(dateString);
-        //        calendarEntries.Add(new StringDataEntity(entry, DateTime.Now));     //DateTime.Now durch in Date konvertierter date-String ersetzen
-        //        Debug.WriteLine(entry);
-        //        Debug.WriteLine(date);
-        //    }
-
-        //    return calendarEntries;
-        //}
 
         public static StringDataEntity getNextEntry()
         {
@@ -99,7 +83,7 @@ namespace HackaTUM.Classes
         private static List<StringDataEntity> splitCalendarString(string s)
         {
             string[] lines = s.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            char delimeter = '!';
+            char delimeter = '%';
 
             for (int line = 0; line < lines.Length; line++)
             {
@@ -120,10 +104,15 @@ namespace HackaTUM.Classes
                     }
                     else count++;
                 }
-                DateTime date = Convert.ToDateTime(dateString);
-                calendarEntries.Add(new StringDataEntity(entry, DateTime.Now));     //DateTime.Now durch in Date konvertierter date-String ersetzen
-                //Debug.WriteLine(entry);
-                //Debug.WriteLine(date);
+                try
+                {
+                    DateTime date = Convert.ToDateTime(dateString);
+                    calendarEntries.Add(new StringDataEntity(entry, date));
+                }
+                catch
+                {
+                    calendarEntries.Add(new StringDataEntity(entry, DateTime.Now));
+                }
             }
 
             return calendarEntries;

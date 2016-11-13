@@ -39,12 +39,12 @@ namespace HackaTUM.Classes
         #endregion
         //--------------------------------------------------------Sonstige Metoden:-----------------------------------------------------------\\
         #region --Sonstige Metoden (Public)--
-        public static TravelDataEntity getTravelData(DateTime DestinationTime)
+        public static TravelDataEntity getTravelData(DateTime destinationTime)
         {
             TravelDataEntity data = null;
             try
             {
-                string xml = getConnectionInfo(DestinationTime);
+                string xml = getConnectionInfo(destinationTime);
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(xml);
                 if (isOk(xmlDoc.SelectSingleNode("/DistanceMatrixResponse/status")))
@@ -52,7 +52,7 @@ namespace HackaTUM.Classes
                     string startA = xmlDoc.SelectSingleNode("/DistanceMatrixResponse/origin_address").InnerText;
                     string targetA = xmlDoc.SelectSingleNode("/DistanceMatrixResponse/destination_address").InnerText;
                     int duration = int.Parse(xmlDoc.SelectSingleNode("/DistanceMatrixResponse/row/element/duration/value").InnerText) / 60;
-                    data = new TravelDataEntity(startA, targetA, DateTime.Now.AddMinutes(7), duration, Utillities.TransportationDevices.PublicTransport);
+                    data = new TravelDataEntity(startA, targetA, destinationTime, duration, Utillities.TransportationDevices.PublicTransport);
                     return data;
                 }
             }
@@ -89,7 +89,8 @@ namespace HackaTUM.Classes
 
             using (var client = new HttpClient())
             {
-                string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
+                Int32 arrivalTime = (Int32)(DestinationTime.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                string s = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + startAdress + "&destinations=" + destination + "&arrivaltime="+arrivalTime+"&mode=transit&key=AIzaSyCrBZT_RgE-4Pks55IG3dOceTq4pyUQGfo";
                 var response = client.GetAsync(s).Result;
 
                 if (response.IsSuccessStatusCode)
