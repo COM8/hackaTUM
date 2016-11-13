@@ -9,6 +9,10 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <cont:Clock Margin="20,20,20,20"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <cont:Clock Margin="20,20,20,20"/>
+            </StackPanel>
+        </ScrollViewer>
     </StackPanel>
 </Page>
