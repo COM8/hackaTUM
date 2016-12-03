@@ -1,12 +1,8 @@
-﻿using Ausgaben_Rechner.Classes;
+﻿using System;
+using Ausgaben_Rechner.Classes;
 using HackaTUM.Classes.Daten;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using Windows.Web.Http;
 
 namespace HackaTUM.Classes
 {
@@ -42,13 +38,13 @@ namespace HackaTUM.Classes
         {
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync(DataStorage.INSTANCE.userData.iCall).Result;
+                HttpResponseMessage response = client.GetAsync(new Uri(DataStorage.INSTANCE.userData.iCall)).GetResults();
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = response.Content;
 
-                    string responseString = responseContent.ReadAsStringAsync().Result;
+                    string responseString = responseContent.ReadAsStringAsync().GetResults();
 
                     return responseString;
                 }
@@ -137,4 +133,4 @@ namespace HackaTUM.Classes
         #endregion
 
     }
-    }
+}
